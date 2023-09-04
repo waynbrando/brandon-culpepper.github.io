@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#output {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(255, 8, 0);
+}
