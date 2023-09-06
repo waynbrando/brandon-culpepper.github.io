@@ -77,7 +77,30 @@ _.typeOf = function(value) {
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+_.first = function(array, number) {
+    // Check if the array is not actually an array
+    if (!Array.isArray(array)) {
+      return [];
+    }
+  
+    // If number is not provided or is not a number
+    if (typeof number !== 'number' || isNaN(number)) {
+      return array[0];
+    }
+  
+    // Edge case: If number is negative, return an empty array
+    if (number < 0) {
+      return [];
+    }
+  
+    // Edge case: If number is greater than array's length, return the whole array
+    if (number > array.length) {
+      return array;
+    }
+  
+    // Otherwise, return the first <number> items of the array
+    return array.slice(0, number);
+  };
 
 /** _.last
 * Arguments:
@@ -96,7 +119,30 @@ _.typeOf = function(value) {
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-
+_.last = function(array, number) {
+    // Check if the array is not actually an array
+    if (!Array.isArray(array)) {
+      return [];
+    }
+  
+    // If number is not provided or is not a number
+    if (typeof number !== 'number' || isNaN(number)) {
+      return array[array.length - 1];
+    }
+  
+    // Edge case: If number is negative, return an empty array
+    if (number < 0) {
+      return [];
+    }
+  
+    // Edge case: If number is greater than array's length, return the whole array
+    if (number > array.length) {
+      return array;
+    }
+  
+    // Otherwise, return the last <number> items of the array
+    return array.slice(-number);
+  };
 
 /** _.indexOf
 * Arguments:
@@ -114,6 +160,14 @@ _.typeOf = function(value) {
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return i;
+      }
+    }
+    return -1;
+  };
 
 /** _.contains
 * Arguments:
@@ -129,7 +183,9 @@ _.typeOf = function(value) {
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
+_.contains = function(array, value) {
+    return array.some(item => item === value) ? true : false;
+  };
 
 /** _.each
 * Arguments:
@@ -147,9 +203,20 @@ _.typeOf = function(value) {
 *      -> should log "a" "b" "c" to the console
 */
 
-_.each = function(collection, func){
-
-};
+_.each = function(collection, func) {
+    // Check if collection is an array
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } 
+    // If collection is an object
+    else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
 
 /** _.unique
 * Arguments:
@@ -160,7 +227,26 @@ _.each = function(collection, func){
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.indexOf = function(array, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return i;
+      }
+    }
+    return -1;
+  };
+  
+  _.unique = function(array) {
+    const result = [];
+    
+    for (let i = 0; i < array.length; i++) {
+      if (_.indexOf(result, array[i]) === -1) {
+        result.push(array[i]);
+      }
+    }
+    
+    return result;
+  };
 
 /** _.filter
 * Arguments:
@@ -177,7 +263,29 @@ _.each = function(collection, func){
 * Extra Credit:
 *   use _.each in your implementation
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.filter = function(array, func) {
+    const result = [];
+  
+    _.each(array, function(element, index, array) {
+      if (func(element, index, array)) {
+        result.push(element);
+      }
+    });
+  
+    return result;
+  };
 
 /** _.reject
 * Arguments:
@@ -191,7 +299,29 @@ _.each = function(collection, func){
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.reject = function(array, func) {
+    const result = [];
+  
+    _.each(array, function(element, index, array) {
+      if (!func(element, index, array)) { // The only difference here is the negation
+        result.push(element);
+      }
+    });
+  
+    return result;
+  };
 
 /** _.partition
 * Arguments:
@@ -211,7 +341,32 @@ _.each = function(collection, func){
 *   }); -> [[2,4],[1,3,5]]
 }
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.partition = function(array, func) {
+    const truthyArr = [];
+    const falsyArr = [];
+  
+    _.each(array, function(element, index, array) {
+      if (func(element, index, array)) {
+        truthyArr.push(element);
+      } else {
+        falsyArr.push(element);
+      }
+    });
+  
+    return [truthyArr, falsyArr];
+  };
 
 /** _.map
 * Arguments:
@@ -228,7 +383,27 @@ _.each = function(collection, func){
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.map = function(collection, func) {
+    const result = [];
+  
+    _.each(collection, function(value, keyOrIndex, collection) {
+      result.push(func(value, keyOrIndex, collection));
+    });
+  
+    return result;
+  };
 
 /** _.pluck
 * Arguments:
@@ -240,7 +415,33 @@ _.each = function(collection, func){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
-
+_.map = function(collection, func) {
+    const result = [];
+  
+    _.each(collection, function(value, keyOrIndex, collection) {
+      result.push(func(value, keyOrIndex, collection));
+    });
+  
+    return result;
+  };
+  
+  _.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.pluck = function(arrayOfObjects, property) {
+    return _.map(arrayOfObjects, function(obj) {
+      return obj[property];
+    });
+  };
 
 /** _.every
 * Arguments:
@@ -262,7 +463,38 @@ _.each = function(collection, func){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.every = function(collection, func) {
+    // If func is not provided, set a default function that checks truthiness
+    if (!func) {
+      func = function(value) {
+        return value;
+      };
+    }
+  
+    let allTrue = true;
+  
+    _.each(collection, function(value, indexOrKey, collection) {
+      // If the function returns a falsy value for any element or value, set allTrue to false
+      if (!func(value, indexOrKey, collection)) {
+        allTrue = false;
+        return; // This doesn't break out of the loop, but it can stop further execution within the current iteration
+      }
+    });
+  
+    return allTrue;
+  };
 
 /** _.some
 * Arguments:
@@ -284,7 +516,38 @@ _.each = function(collection, func){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
-
+_.each = function(collection, func) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        func(collection[i], i, collection);
+      }
+    } else if (typeof collection === 'object' && collection !== null) {
+      for (let key in collection) {
+        func(collection[key], key, collection);
+      }
+    }
+  };
+  
+  _.some = function(collection, func) {
+    // If func is not provided, set a default function that checks truthiness
+    if (!func) {
+      func = function(value) {
+        return value;
+      };
+    }
+  
+    let anyTrue = false;
+  
+    _.each(collection, function(value, indexOrKey, collection) {
+      // If the function returns a truthy value for any element or value, set anyTrue to true
+      if (func(value, indexOrKey, collection)) {
+        anyTrue = true;
+        return; // This doesn't break out of the loop, but it can stop further execution within the current iteration
+      }
+    });
+  
+    return anyTrue;
+  };
 
 /** _.reduce
 * Arguments:
@@ -306,8 +569,22 @@ _.each = function(collection, func){
 */
 
 _.reduce = function(array, func, seed){
+    let startIndex = 0; // Default start index for the loop
 
-}
+    // If no seed is provided, use the first element of the array as the seed
+    if (seed === undefined) {
+        seed = array[0];
+        startIndex = 1; // Start from the next index
+    }
+
+    let accumulator = seed;
+
+    for (let i = startIndex; i < array.length; i++) {
+        accumulator = func(accumulator, array[i], i);
+    }
+
+    return accumulator;
+};
 
 
 /** _.extend
@@ -324,7 +601,23 @@ _.reduce = function(array, func, seed){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+_.extend = function() {
+    let target = arguments[0] || {}; // The target object
 
+    for (let i = 1; i < arguments.length; i++) {
+        let source = arguments[i];
+
+        if (source != null) { // Only process if it's not null/undefined
+            for (let key in source) {
+                if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+
+    return target;
+};
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////

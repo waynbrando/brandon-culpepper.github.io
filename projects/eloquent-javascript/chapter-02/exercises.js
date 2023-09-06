@@ -3,24 +3,59 @@
 // triangles ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function triangles() {
-
+function triangles(n) {
+  let triangle = '';
+  for (let i = 1; i <= n; i++) {
+    triangle += '#';
+    console.log(triangle);
+  }
 }
 ////////////////////////////////////////////////////////////////////////////////
 // fizzBuzz ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function fizzBuzz() {
-  
+function fizzBuzz(start, end) {
+  for (let i = start; i <= end; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      console.log('fizzbuzz');
+    } else if (i % 3 === 0) {
+      console.log('fizz');
+    } else if (i % 5 === 0) {
+      console.log('buzz');
+    } else {
+      console.log(i);
+    }
+  }
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // drawChessboard //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function drawChessboard() {
+function drawChessboard(size) {
+  let board = ""; // Start with an empty board
 
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      // Decide whether to append a space or a "#"
+      if ((x + y) % 2 === 0) {
+        board += " ";
+      } else {
+        board += "#";
+      }
+    }
+    // At the end of each row, append a newline
+    board += "\n";
+  }
+
+  console.log(board);
+  return board;  // Return is optional, depending on if you want to use the output elsewhere
 }
+
+let size = 8;
+drawChessboard(size);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
